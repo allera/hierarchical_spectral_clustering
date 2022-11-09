@@ -10,4 +10,4 @@ dependencies:
   - scikit-learn
   - matplotlib
   - networkx
-prefix: /Users/alblle/opt/anaconda3/envs/spectral_clsutering_env
+
