@@ -66,7 +66,7 @@ def compute_similarity(X=None,Similarity='corr'):
         S=np.corrcoef(X)  
         #S[S<0]=0
     elif Similarity=='euclid':
-        S=pairwise_distances(X)#, metric="cosine")  
+        S=1/(1+pairwise_distances(X))#, metric="cosine")  
     elif Similarity =='dot':
         S=np.dot(X,X.T)
     elif Similarity =='cosine':
