@@ -6,13 +6,6 @@ Created on Mon Mar 14 16:36:46 2022
 @author: alblle
 """
 
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Jan 14 18:58:48 2021
-
-@author: alblle
-"""
 import pandas as pd
 import os
 import numpy as np
@@ -28,7 +21,7 @@ from scipy.spatial.distance import cosine
 import sys
 
 
-#-->load hc module
+#-->load hc module.       CHANGE THIS PATH TO THE LOCATION OF TOOL YOU DOWNLOADED !!!!!!!!!!!
 toolbox_path='/Users/alblle/Dropbox/POSTDOC/EU_aims/stratifications/paper_code/hierarchical_clustering_module_git' 
 sys.path.append(toolbox_path) 
 #from hc import hierarchical_spectral_clustering
@@ -61,7 +54,7 @@ plt.scatter(data[:,0],data[:,1])
 
 #-->run hierarchical spectral clustering
 
-#1) compute similarity matrix
+#1) compute similarity matrix, Similarity one of 'corr','euclid','dot','cosine':
 S=hc.compute_similarity(X=data,Similarity='euclid')
 
 #2) compute graph Laplacian
