@@ -51,47 +51,29 @@ np.random.seed(0)
 n_samples = 100
 noisy_circles = datasets.make_circles(n_samples=n_samples, factor=.5,noise=.05)
 data=noisy_circles[0]
-
+# normalize dataset for easier parameter selection
+data = StandardScaler().fit_transform(data)
+plt.scatter(data[:,0],data[:,1])
 ####################################
 #<--load datasets
 
 
 
-#-->run our hierarchical spectral clustering
+#-->run hierarchical spectral clustering
 
-    
-        
-# normalize dataset for easier parameter selection
-data = StandardScaler().fit_transform(data)
-plt.scatter(data[:,0],data[:,1])
-
-
+#1) compute similarity matrix
 S=hc.compute_similarity(X=data,Similarity='euclid')
+
+#2) compute graph Laplacian
 L,D,W=hc.compute_graph_Laplacian(S=S)
+
+#3) compute spectral decomposition 
 yy,path_length=hc.compute_spectral_decomposition_graph_Laplacian(L=L,D=D,dim=1)
 print('plotting results')
+
+#4 plot hierachical spectral clustering dendogram and select a model order based on BIC
 link_mat,minbic,labels = hc.spectral_clustering(yy,data)  
 
 
-
-
-   
-usesklearn=0
-if usesklearn==1:
-    from sklearn import cluster
-    n_selected_clusters=3
-    algorithm = cluster.SpectralClustering(n_clusters=n_selected_clusters, eigen_solver='arpack',
-            affinity="nearest_neighbors")
-    algorithm.fit(data)
-    if hasattr(algorithm, 'labels_'):
-        cluster_labels = algorithm.labels_.astype(int)
-    else:
-        cluster_labels = algorithm.predict(X)
-        
-    for k in range(0,n_selected_clusters):
-        tmpd=data[cluster_labels==k,:]
-        plt.scatter(tmpd[:,0],tmpd[:,1],c=mycolors[k])   
-    plt.title('clustering solution scikitlearn')
-    plt.show()    
-        
+#<--run hierarchical spectral clustering
 
